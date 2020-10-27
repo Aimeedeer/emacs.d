@@ -14,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(muse-project-alist nil)
- '(package-selected-packages '(org-roam ## js2-mode rust-mode)))
+ '(package-selected-packages '(org-ref org-roam ## js2-mode rust-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -22,6 +22,20 @@
  ;; If there is more than one, they won't work right.
  )
 (setq org-roam-directory "~/github/org-roam")
+(use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/github/org-roam/")
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))
+              (("C-c n I" . org-roam-insert-immediate))))
+
 
 (add-hook 'after-init-hook 'org-roam-mode)
 (setq org-roam-tag-sources '(prop last-directory))
